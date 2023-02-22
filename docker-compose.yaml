@@ -15,6 +15,7 @@ services:
     depends_on:
         - webapp
         - api.orders
+        - api.products
 
   webapp:
     image: webapp:latest
@@ -23,6 +24,7 @@ services:
       - 3000:3000
     depends_on:
       - api.orders
+      - api.products
       - mariadb
     build:
       context: ./webapp
@@ -54,7 +56,28 @@ services:
       - MYSQL_PORT=3306
     networks:
       - app_network
-  
+
+  api.products:
+    image: api-products:latest
+    container_name: api-products
+    ports:
+      - 5002:5002
+    build:
+      context: ./api.products
+      dockerfile: Dockerfile
+    depends_on:
+      - mariadb
+    volumes:
+      - ./api.products:/api.products
+    environment:
+      - CHOKIDAR_USEPOLLING=true
+      - MYSQL_USER=interviewer
+      - MYSQL_PASSWORD=changeme
+      - MYSQL_HOST=172.17.0.1
+      - MYSQL_PORT=3306
+    networks:
+      - app_network
+
   mariadb:
     image: mariadb:10.2
     container_name: mariadb
@@ -69,6 +92,22 @@ services:
     volumes:
      - ./db/schema.sql:/docker-entrypoint-initdb.d/1.sql
      - ./db/data.sql:/docker-entrypoint-initdb.d/2.sql
+    networks:
+      - app_network
+
+  phpAdmin:
+    image: phpmyadmin/phpmyadmin
+    container_name: pma
+    restart: always
+    links:
+      - mariadb
+    ports:
+      - 8081:80
+    environment:
+      MYSQL_ROOT_PASSWORD: changeme
+      PMA_HOST: mariadb
+      PMA_USER: interviewer
+      PMA_PASSWORD: changeme
     networks:
       - app_network
 
