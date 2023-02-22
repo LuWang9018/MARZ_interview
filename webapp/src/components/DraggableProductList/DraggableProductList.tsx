@@ -8,7 +8,7 @@ const DraggableProductList = (props: DraggableProductListProps) => (
         {(provided) => (
             <div
                 ref={provided.innerRef}
-                className='bg-neutral-500 p-4 w-full'
+                className='bg-neutral-500 p-4 w-full '
                 data-testid={`droppable-container-${props.ID}`}
             >
                 <h5
@@ -17,26 +17,32 @@ const DraggableProductList = (props: DraggableProductListProps) => (
                 >
                     {props.listTitle}
                 </h5>
-                {
-                    props.items.length > 0 && props.items.map((item, index) => (
-                        <Draggable
-                            key={item.ProductID}
-                            draggableId={`${item.ProductID}`}
-                            index={index}
-                        >
-                            {(provided: DraggableProvided) => (
-                                <DraggableProductItem
-                                    ProductID={item.ProductID}
-                                    ProductName={item.ProductName}
-                                    ProductPhotoURL={item.ProductPhotoURL}
-                                    ProductStatus={item.ProductStatus}
-                                    draggableProvided={provided}
-                                    removeProduct={props.removeProduct}
-                                />
-                            )}
-                        </Draggable>
-                    ))
-                }
+                <div
+                    ref={provided.innerRef}
+                    className='grid grid-cols-3 gap-4'
+                    data-testid={`droppable-inner-container-${props.ID}`}
+                >
+                    {
+                        props.items.length > 0 && props.items.map((item, index) => (
+                            <Draggable
+                                key={item.ProductID}
+                                draggableId={`${item.ProductID}`}
+                                index={index}
+                            >
+                                {(provided: DraggableProvided) => (
+                                    <DraggableProductItem
+                                        ProductID={item.ProductID}
+                                        ProductName={item.ProductName}
+                                        ProductPhotoURL={item.ProductPhotoURL}
+                                        ProductStatus={item.ProductStatus}
+                                        draggableProvided={provided}
+                                        removeProduct={props.removeProduct}
+                                    />
+                                )}
+                            </Draggable>
+                        ))
+                    }
+                </div>
                 {provided.placeholder}
             </div>
         )}

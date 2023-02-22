@@ -1,5 +1,5 @@
 from flask import Flask
-from api.blueprints.products import products_blueprint
+from api.blueprints.products import product_blueprint
 from api.models import db
 
 _URL_PREFIX ='/api'
@@ -16,7 +16,7 @@ def after_request(response):
     db.close()
     return response
 
-app.register_blueprint(products_blueprint, url_prefix=PRODUCTS_URL)
+app.register_blueprint(product_blueprint, url_prefix=PRODUCTS_URL)
 
 if __name__ == '__main__':
     app.run(debug=True, host="0.0.0.0", port=5002)

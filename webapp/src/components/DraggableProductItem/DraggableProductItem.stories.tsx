@@ -1,15 +1,15 @@
 import React from 'react';
 import { ComponentStory, ComponentMeta } from '@storybook/react';
 import type { DraggableProvided } from 'react-beautiful-dnd';
-import { Order } from '../interfaces';
-import DraggableItem from './DraggableProductItem';
+import { Product } from '../interfaces';
+import DraggableProductItem from './DraggableProductItem';
 
 export default {
-    title: 'Draggable Item',
-    component: DraggableItem,
-} as ComponentMeta<typeof DraggableItem>;
+    title: 'Draggable Product Item',
+    component: DraggableProductItem,
+} as ComponentMeta<typeof DraggableProductItem>;
 
-const Template: ComponentStory<typeof DraggableItem> = (args) => <DraggableItem {...args} />;
+const Template: ComponentStory<typeof DraggableProductItem> = (args) => <DraggableProductItem {...args} />;
 
 const draggableProvided: DraggableProvided = ({
     innerRef: () => {},
@@ -20,17 +20,19 @@ const draggableProvided: DraggableProvided = ({
     dragHandleProps: null,
 }); 
 
-const getArgs = (OrderStatus: string) => ({
-    OrderID: 1234,
-    CustomerID: 2345,
-    ProductID: 3456,
-    OrderStatus, 
-    draggableProvided,
-    removeOrder: (order: Order) => {},
-});
+const getArgs = (ProductStatus: string) => (
+    { 
+        ProductID: 1, 
+        ProductName: "Name",
+        ProductPhotoURL: "https://media.gq.com/photos/61895877cd7f3b17165aa95b/master/w_2000,h_1333,c_limit/L.jpg", 
+        ProductStatus: "Active",
+        draggableProvided,
+        removeProduct: (product: Product) => {},
+    }
+);
 
-export const NotInQA = Template.bind({});
-NotInQA.args = getArgs('InProgress');
+export const Active = Template.bind({});
+Active.args = getArgs('Active');
 
-export const InQA = Template.bind({});
-InQA.args = getArgs('QA');
+export const Inactive = Template.bind({});
+Inactive.args = getArgs('Inactive');

@@ -12,10 +12,10 @@ const links = [
 
 const PageWrapper = (props: PageWrapperProps) => (
     <>
-        <div className="sticky top-0">
+        <div className="sticky top-0 z-100">
             <Header links={links} />
         </div>
-        <div className="flex flex-col items-center justify-center p-4">
+        <div className="flex flex-col items-center justify-center p-4 z-99">
             <span className="text-9xl text-white">MARZ VFX</span>
             {props.children}
         </div>

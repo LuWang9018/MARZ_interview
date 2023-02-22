@@ -77,12 +77,3 @@ class Product(BaseModel):
     
     class Meta:
         table_name = 'Product'
-
-class Orders(BaseModel):
-    OrderID = IntegerField(primary_key=True)
-    OrderStatus = EnumField(ORDER_STATUSES_SET, null=False)
-    ProductID = ForeignKeyField(Product, field='ProductID', null=False, column_name='ProductID')
-    CustomerID = ForeignKeyField(Customer, field='CustomerID', null=False, column_name='CustomerID')
-    
-    class Meta:
-        table_name = 'Orders'

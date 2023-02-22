@@ -92,7 +92,12 @@ CREATE TABLE `Product` (
 
 LOCK TABLES `Product` WRITE;
 /*!40000 ALTER TABLE `Product` DISABLE KEYS */;
-INSERT INTO `Product` VALUES (1,'Hat','t','Active'),(2,'Shoes','t','Active'),(3,'Pants','t','Active'),(4,'Shirt','t','InActive'),(5,'Coat','t','InActive');
+INSERT INTO `Product` VALUES 
+(1,'Hat','https://cdn.shopify.com/s/files/1/1265/6377/products/12195055_59FIFTY_M5950HWCTMBASC_TORRAPHCN_OTC_3QL.jpg?v=1580762355','Active'),
+(2,'Shoes','https://images.vans.com/is/image/Vans/VN000D3HY28-HERO?$PLP-IMAGE$&qlt=85&bgc=e5e5e9','Active'),
+(3,'Pants','https://www.uniqlo.com/jp/ja/contents/feature/masterpiece/common_22fw/img/item_61_01.jpg','Active'),
+(4,'Shirt','https://ae01.alicdn.com/kf/Hb3e4eea1310f4daa9964fa2436573f69j/T-Shirts-Men-Boston-Terrier-Day-of-the-Dead-Sugar-Skull-Dog-Round-Collar-Hot-Cheap.jpg_Q90.jpg_.webp','InActive'),
+(5,'Coat','https://media.gq.com/photos/61895877cd7f3b17165aa95b/master/w_2000,h_1333,c_limit/L.jpg','InActive');
 /*!40000 ALTER TABLE `Product` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;

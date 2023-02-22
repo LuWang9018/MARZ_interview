@@ -8,15 +8,36 @@ const DraggableProductItem = (props: DraggableProductItemProps) => (
         ref={props.draggableProvided.innerRef}
         {...props.draggableProvided.draggableProps}
         {...props.draggableProvided.dragHandleProps}
-        className='bg-neutral-300 flex items-center justify-between mt-1 p-3 rounded w-full'
+        className='relative bg-neutral-300 items-center justify-between mt-1 p-3 rounded w-full aspect-[3/4] z-0'
         data-testid={`draggable-container-${props.ProductID}`}
     >
-        <span data-testid={`draggable-productPhotoUrl-${props.ProductID}`}>{ props.ProductPhotoURL }</span>
-        <span data-testid={`draggable-productID-${props.ProductID}`}>{ props.ProductID }</span>
+        <img 
+            data-testid={`draggable-productPhotoUrl-${props.ProductID}`} 
+            src={`${props.ProductPhotoURL}`} alt={`${props.ProductPhotoURL}`}
+            className = 'w-[100%] max-w-[100%] object-contain aspect-[3/4]'
+        >
+
+        </img>
+        <span 
+            className = 'grid'
+            data-testid={`draggable-productName-${props.ProductName}`}
+        >
+            Product Name : { props.ProductName }
+        </span>
+        <span 
+            className = 'grid'
+            data-testid={`draggable-productID-${props.ProductID}`}
+        >
+            Product ID: { props.ProductID }
+        </span>
         {(() => {
             const { ProductID, ProductName, ProductPhotoURL, ProductStatus, removeProduct } = props;
             return (
-                <button onClick={() => removeProduct({ ProductID, ProductName, ProductPhotoURL, ProductStatus })}>
+
+                <button 
+                    className = 'absolute top-1 right-1'
+                    onClick={() => removeProduct({ ProductID, ProductName, ProductPhotoURL, ProductStatus })}
+                >
                     <FontAwesomeIcon
                         icon={faSquareXmark}
                         className={`${'text-red-600'} fa-lg`}

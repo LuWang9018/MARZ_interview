@@ -135,9 +135,7 @@ const ProductsPage = () => {
 
   return (
     <PageWrapper>
-      <h1 className="text-3xl font-bold text-white">
         { content }
-      </h1>
     </PageWrapper>
   );
 };

@@ -55,9 +55,10 @@ const getAllProductData = async () => {
     };
     let errorOccured = false;
     try {
-      const response = await axios.get(INPIPELINE_URL);
+      const response = await axios.get(GET_ALL_PRODUCT_URL);
       if (response?.status === 200) {
         const { data } = response.data;
+        console.log("===================", data)
         data.forEach((product: Product) => {
           productData[product.ProductStatus as keyof ProductData].push(product);
         });

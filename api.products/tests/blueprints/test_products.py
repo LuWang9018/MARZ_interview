@@ -1,7 +1,7 @@
 from pytest import fixture
 from app import PRODUCTS_URL
 from api.blueprints.products import products_blueprint
-from api.models import Customer, Product, Orders
+from api.models import Customer, Product
 import json
 
 @fixture()

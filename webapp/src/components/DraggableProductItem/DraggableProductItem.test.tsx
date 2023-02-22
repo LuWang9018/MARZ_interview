@@ -3,7 +3,7 @@ import { DraggableProvided } from "react-beautiful-dnd";
 import { create, ReactTestRenderer} from 'react-test-renderer';
 import DraggableProductItem from './DraggableProductItem';
 
-describe('DraggableItem', () => {
+describe('DraggableProductItem', () => {
   let tree: ReactTestRenderer;
   const ID = '1';
   beforeEach(() => {
@@ -18,7 +18,7 @@ describe('DraggableItem', () => {
     const props = {
       ProductID : 1,
       ProductName: "A",
-      ProductPhotoURL: "1234",
+      ProductPhotoURL: "https://media.gq.com/photos/61895877cd7f3b17165aa95b/master/w_2000,h_1333,c_limit/L.jpg",
       ProductStatus: 'Active', 
       draggableProvided,
       removeProduct: () => {},

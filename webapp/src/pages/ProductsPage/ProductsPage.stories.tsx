@@ -1,74 +1,56 @@
 import React from "react";
 import { ComponentStory, ComponentMeta } from '@storybook/react';
 import { MemoryRouter } from 'react-router-dom';
-import HomePage from "./HomePage";
-import { INPIPELINE_URL, UPDATE_ORDER_STATUS_URL } from "../ApiHelper";
+import ProductsPage from "./ProductsPage";
+import { GET_ALL_PRODUCT_URL, UPDATE_PRODUCT_STATUS_URL } from "../ApiHelper";
 
 export default {
-    title: 'Home Page',
-    component: HomePage,
+    title: 'Product Page',
+    component: ProductsPage,
     decorators : [(Story) => (<MemoryRouter><Story/></MemoryRouter>)]
-} as ComponentMeta<typeof HomePage>;
+} as ComponentMeta<typeof ProductsPage>;
 
-const Template: ComponentStory<typeof HomePage> = () => <HomePage />;
+const Template: ComponentStory<typeof ProductsPage> = () => <ProductsPage />;
 
 export const GetDataSuccess = Template.bind({});
 GetDataSuccess.parameters = {
     mockData: [
         {
-            url: INPIPELINE_URL,
+            url: GET_ALL_PRODUCT_URL,
             method: 'GET',
             status: 200,
             response: {
                 data: [
                     {
-                      "CustomerID": 1,
-                      "OrderID": 2,
-                      "OrderStatus": "Queued",
-                      "ProductID": 1
+                      "ProductID": 1,
+                      "ProductName": "A",
+                      "ProductPhotoURL": "https://media.gq.com/photos/61895877cd7f3b17165aa95b/master/w_2000,h_1333,c_limit/L.jpg",
+                      "ProductStatus": 'Active'
                     },
                     {
-                      "CustomerID": 2,
-                      "OrderID": 3,
-                      "OrderStatus": "Queued",
-                      "ProductID": 1
+                      "ProductID": 2,
+                      "ProductName": "B",
+                      "ProductPhotoURL": "https://media.gq.com/photos/61895877cd7f3b17165aa95b/master/w_2000,h_1333,c_limit/L.jpg",
+                      "ProductStatus": 'Active'
                     },
                     {
-                      "CustomerID": 3,
-                      "OrderID": 4,
-                      "OrderStatus": "Queued",
-                      "ProductID": 1
+                      "ProductID": 3,
+                      "ProductName": "C",
+                      "ProductPhotoURL": "https://media.gq.com/photos/61895877cd7f3b17165aa95b/master/w_2000,h_1333,c_limit/L.jpg",
+                      "ProductStatus": 'InActive'
                     },
                     {
-                      "CustomerID": 3,
-                      "OrderID": 5,
-                      "OrderStatus": "InProgress",
-                      "ProductID": 2
+                      "ProductID": 4,
+                      "ProductName": "D",
+                      "ProductPhotoURL": "https://media.gq.com/photos/61895877cd7f3b17165aa95b/master/w_2000,h_1333,c_limit/L.jpg",
+                      "ProductStatus": 'InActive'
                     },
-                    {
-                      "CustomerID": 4,
-                      "OrderID": 6,
-                      "OrderStatus": "InProgress",
-                      "ProductID": 2
-                    },
-                    {
-                      "CustomerID": 1,
-                      "OrderID": 7,
-                      "OrderStatus": "InProgress",
-                      "ProductID": 3
-                    },
-                    {
-                      "CustomerID": 2,
-                      "OrderID": 8,
-                      "OrderStatus": "QA",
-                      "ProductID": 1
-                    }
                 ],
                 message: ""
             },
         },
         {
-            url: UPDATE_ORDER_STATUS_URL,
+            url: UPDATE_PRODUCT_STATUS_URL,
             method: 'POST',
             status: 200,
             response: {
@@ -84,7 +66,7 @@ export const GetDataSuccessEmpty = Template.bind({});
 GetDataSuccessEmpty.parameters = {
     mockData: [
         {
-            url: INPIPELINE_URL,
+            url: GET_ALL_PRODUCT_URL,
             method: 'GET',
             status: 200,
             response: {
@@ -93,7 +75,7 @@ GetDataSuccessEmpty.parameters = {
             },
         },
         {
-            url: UPDATE_ORDER_STATUS_URL,
+            url: UPDATE_PRODUCT_STATUS_URL,
             method: 'POST',
             status: 200,
             response: {
@@ -109,7 +91,7 @@ export const GetDataError = Template.bind({});
 GetDataError.parameters = {
     mockData: [
         {
-            url: INPIPELINE_URL,
+            url: GET_ALL_PRODUCT_URL,
             method: 'GET',
             status: 500,
             response: {
@@ -118,7 +100,7 @@ GetDataError.parameters = {
             }
         },
         {
-            url: UPDATE_ORDER_STATUS_URL,
+            url: UPDATE_PRODUCT_STATUS_URL,
             method: 'POST',
             status: 200,
             response: {
