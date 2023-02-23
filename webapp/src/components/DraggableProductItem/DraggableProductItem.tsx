@@ -30,22 +30,6 @@ const DraggableProductItem = (props: DraggableProductItemProps) => (
         >
             Product ID: { props.ProductID }
         </span>
-        {(() => {
-            const { ProductID, ProductName, ProductPhotoURL, ProductStatus, removeProduct } = props;
-            return (
-
-                <button 
-                    className = 'absolute top-1 right-1'
-                    onClick={() => removeProduct({ ProductID, ProductName, ProductPhotoURL, ProductStatus })}
-                >
-                    <FontAwesomeIcon
-                        icon={faSquareXmark}
-                        className={`${'text-red-600'} fa-lg`}
-                        data-testid={`draggable-btn-${props.ProductID}`}
-                    />
-                </button>
-            );
-        })()}
     </div>
 );
 

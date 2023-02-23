@@ -46,19 +46,19 @@ const updateOrderStatus = async (order: Order, newOrderStatus: string) => {
     return orderStatusUpdated;
 };
 
-const GET_ALL_PRODUCT_URL = '/api/products/all';
+const GET_ALL_ACTIVE_PRODUCT_URL = '/api/products/allActive';
 
-const getAllProductData = async () => {
+const getAllActiveProductData = async () => {
     const productData: ProductData = {
       Active: [],
       InActive: [],
     };
     let errorOccured = false;
     try {
-      const response = await axios.get(GET_ALL_PRODUCT_URL);
+      const response = await axios.get(GET_ALL_ACTIVE_PRODUCT_URL);
       if (response?.status === 200) {
         const { data } = response.data;
-        console.log("===================", data)
+        console.log("-------------------", data)
         data.forEach((product: Product) => {
           productData[product.ProductStatus as keyof ProductData].push(product);
         });
@@ -73,7 +73,33 @@ const getAllProductData = async () => {
     return { productData, errorOccured };
 };
 
-const UPDATE_PRODUCT_STATUS_URL = '/api/product/update_status';
+const GET_ALL_PRODUCT_URL = '/api/products/all';
+
+const getAllProductData = async () => {
+    const productData: ProductData = {
+      Active: [],
+      InActive: [],
+    };
+    let errorOccured = false;
+    try {
+      const response = await axios.get(GET_ALL_PRODUCT_URL);
+      if (response?.status === 200) {
+        const { data } = response.data;
+        data.forEach((product: Product) => {
+          productData[product.ProductStatus as keyof ProductData].push(product);
+        });
+      } else {
+        const { message } = response.data;
+        throw message;
+      }
+    } catch(err) {
+      console.error(err);
+      errorOccured = true;
+    }
+    return { productData, errorOccured };
+};
+
+const UPDATE_PRODUCT_STATUS_URL = '/api/products/update_status';
 
 const updateProductStatus = async (product: Product, newProductStatus: string) => {
     const updatedProduct = { ...product, ProductStatus: newProductStatus };
@@ -96,5 +122,6 @@ export {
   updateOrderStatus, UPDATE_ORDER_STATUS_URL,
 
   getAllProductData, GET_ALL_PRODUCT_URL,
+  getAllActiveProductData, GET_ALL_ACTIVE_PRODUCT_URL,
   updateProductStatus, UPDATE_PRODUCT_STATUS_URL,
 };

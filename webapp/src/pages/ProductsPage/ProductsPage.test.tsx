@@ -1,7 +1,7 @@
 import React from "react";
 import { rest } from "msw";
 import { setupServer } from "msw/node";
-import { GET_ALL_PRODUCT_URL } from "../ApiHelper";
+import { GET_ALL_ACTIVE_PRODUCT_URL } from "../ApiHelper";
 import { render, screen, waitFor} from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
 import ProductsPage from "./ProductsPage";
@@ -30,7 +30,7 @@ describe("ProductPage", () => {
             message: ""
         };
         const server = setupServer(
-          rest.get(GET_ALL_PRODUCT_URL, (req, res, ctx) => {
+          rest.get(GET_ALL_ACTIVE_PRODUCT_URL, (req, res, ctx) => {
             return res(ctx.status(200), ctx.json(response));
           })
         );
@@ -52,7 +52,7 @@ describe("ProductPage", () => {
             message: "Error"
         };
         const server = setupServer(
-          rest.get(GET_ALL_PRODUCT_URL, (req, res, ctx) => {
+          rest.get(GET_ALL_ACTIVE_PRODUCT_URL, (req, res, ctx) => {
             return res(ctx.status(500), ctx.json(response));
           })
         );

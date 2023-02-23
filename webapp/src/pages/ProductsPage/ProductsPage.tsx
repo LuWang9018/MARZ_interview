@@ -3,7 +3,7 @@ import { useState } from "react";
 import PageWrapper from '../PageWrapper';
 import Spinner from "../../components/Spinner/Spinner";
 import { Product, ProductData } from "../../components/interfaces";
-import { getAllProductData, updateProductStatus } from "../ApiHelper";
+import { getAllActiveProductData, getAllProductData, updateProductStatus } from "../ApiHelper";
 import { DragDropContext } from 'react-beautiful-dnd';
 import DraggableProductList from "../../components/DraggableProductList/DraggableProductList";
 
@@ -35,7 +35,14 @@ const ProductsPage = () => {
       const [loadingState, setLoadingState] = useState(DATA_STATES.waiting);
       const [data, setData] = useState({Active: [], InActive: []} as ProductData);
 
-      const getProducts = async () => {
+      const getActiveProducts = async () => {
+        setLoadingState(DATA_STATES.waiting);
+        const { productData, errorOccured } = await getAllActiveProductData();
+        setData(productData);
+        setLoadingState(errorOccured ? DATA_STATES.error : DATA_STATES.loaded);
+      };
+
+      const getAllProducts = async () => {
         setLoadingState(DATA_STATES.waiting);
         const { productData, errorOccured } = await getAllProductData();
         setData(productData);
@@ -44,8 +51,9 @@ const ProductsPage = () => {
 
       const updateProduct = async (product: Product) => {
         setLoadingState(DATA_STATES.waiting);
-        const newProductStatus = product.ProductStatus;
+        const newProductStatus = product.ProductStatus === "Active" ? "InActive": "Active";
         const productStatusUpdated = await updateProductStatus(product, newProductStatus);
+
         if (productStatusUpdated) {
           const columnKey = product.ProductStatus as keyof ProductData
           setData({
@@ -58,7 +66,7 @@ const ProductsPage = () => {
         setLoadingState(DATA_STATES.loaded);
       };
 
-      const handleDragEnd = (result: any) => {
+      const handleDragEnd = async (result: any) => {
         const { source, destination } = result;
         if (!destination) return;
         const sourceKey = ID_LIST_MAP[source.droppableId as keyof IdList] as keyof ProductData;
@@ -77,6 +85,7 @@ const ProductsPage = () => {
             const sourceClone = Array.from(data[sourceKey]);
             const destClone = Array.from(data[destKey]);
             const [removed] = sourceClone.splice(sourceIndex, 1);
+            await updateProduct(removed)
             destClone.splice(destIndex, 0, removed);
             destClone[destIndex].ProductStatus = destKey;
             setData({
@@ -84,11 +93,13 @@ const ProductsPage = () => {
               [sourceKey]: sourceClone,
               [destKey]: destClone,
             });
+            
         }
+
       };
 
       useEffect(() => {
-        getProducts();
+        getActiveProducts();
       }, []);
 
       let content;
@@ -136,6 +147,20 @@ const ProductsPage = () => {
   return (
     <PageWrapper>
         { content }
+        <div className = 'absolute bottom-1 right-1'>
+          <button 
+              className = "rounded-lg bg-white text-black mr-4"
+              onClick={() => getActiveProducts()}
+          >
+            Get Active Products
+          </button>
+          <button 
+              className = "rounded-lg bg-white text-black mr-4"
+              onClick={() => getAllProducts()}
+          >
+            Get All Products
+          </button>
+        </div>
     </PageWrapper>
   );
 };

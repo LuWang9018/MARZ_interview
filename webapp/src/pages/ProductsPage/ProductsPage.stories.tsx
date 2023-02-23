@@ -2,7 +2,7 @@ import React from "react";
 import { ComponentStory, ComponentMeta } from '@storybook/react';
 import { MemoryRouter } from 'react-router-dom';
 import ProductsPage from "./ProductsPage";
-import { GET_ALL_PRODUCT_URL, UPDATE_PRODUCT_STATUS_URL } from "../ApiHelper";
+import { GET_ALL_ACTIVE_PRODUCT_URL, UPDATE_PRODUCT_STATUS_URL } from "../ApiHelper";
 
 export default {
     title: 'Product Page',
@@ -16,7 +16,7 @@ export const GetDataSuccess = Template.bind({});
 GetDataSuccess.parameters = {
     mockData: [
         {
-            url: GET_ALL_PRODUCT_URL,
+            url: GET_ALL_ACTIVE_PRODUCT_URL,
             method: 'GET',
             status: 200,
             response: {
@@ -66,7 +66,7 @@ export const GetDataSuccessEmpty = Template.bind({});
 GetDataSuccessEmpty.parameters = {
     mockData: [
         {
-            url: GET_ALL_PRODUCT_URL,
+            url: GET_ALL_ACTIVE_PRODUCT_URL,
             method: 'GET',
             status: 200,
             response: {
@@ -91,7 +91,7 @@ export const GetDataError = Template.bind({});
 GetDataError.parameters = {
     mockData: [
         {
-            url: GET_ALL_PRODUCT_URL,
+            url: GET_ALL_ACTIVE_PRODUCT_URL,
             method: 'GET',
             status: 500,
             response: {
